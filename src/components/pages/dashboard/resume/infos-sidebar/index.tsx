@@ -4,6 +4,7 @@ import { AIgenerationDropdown } from "./ai-generation-dropdown";
 import { Separator } from "@/components/ui/separator";
 import { BasicInfoSection } from "./sections/basic-info";
 import { SummarySection } from "./sections/summary";
+import { MultipleSections } from "./sections/multiple";
 
 export const InfoSideBar = () => {
   return (
@@ -22,6 +23,7 @@ export const InfoSideBar = () => {
       <Separator className="my-5" />
 
       <SummarySection />
+      <MultipleSections />
     </aside>
   );
 };
