@@ -22,11 +22,12 @@ export const InputField = ({
       name={name}
       rules={{ required: required && "Campo obrigatorio" }}
       render={({ field, fieldState }) => (
-        <FieldWrapper label={label} className={containerClassName}>
+        <FieldWrapper
+          label={label}
+          className={containerClassName}
+          error={fieldState?.error}
+        >
           <Input {...props} {...field} />
-          {fieldState.error && (
-            <p className="text-red-500 text-sm">{fieldState.error.message}</p>
-          )}
         </FieldWrapper>
       )}
     />
