@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { InputField } from "@/components/ui/input/field";
 import { EditorField } from "@/components/ui/editor/field";
 import { IconField } from "@/components/ui/icon-input/field";
+import { SliderField } from "@/components/ui/slider/field";
 
 type ManageMultipleItemDialogProps = BaseDialogProps & {
   data: MultipleDragItemData;
@@ -263,6 +264,7 @@ export const MenageMultipleItemDialog = ({
           {fieldType === "text" && <InputField {...inputProps} />}
           {fieldType === "editor" && <EditorField {...inputProps} />}
           {fieldType === "icon" && <IconField {...inputProps} />}
+          {fieldType === "slider" && <SliderField {...inputProps} />}
         </Fragment>
       );
     });
