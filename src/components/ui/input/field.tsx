@@ -7,12 +7,14 @@ type InputFieldProps = ComponentProps<typeof Input> & {
   label: string;
   name: string;
   containerClassName?: string;
+  extraContent?: (value: string) => React.ReactNode;
 };
 export const InputField = ({
   label,
   name,
   containerClassName,
   required,
+  extraContent,
   ...props
 }: InputFieldProps) => {
   const { control } = useFormContext();
@@ -28,6 +30,7 @@ export const InputField = ({
           error={fieldState?.error}
         >
           <Input {...props} {...field} />
+          {extraContent && extraContent(field.value)}
         </FieldWrapper>
       )}
     />
