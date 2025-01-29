@@ -1,6 +1,6 @@
 import { BaseDialogProps, Dialog } from "@/components/ui/dialog";
 import { MultipleDragItemData, ResumeArrayKeys } from ".";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { Fragment, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -9,6 +9,8 @@ import { EditorField } from "@/components/ui/editor/field";
 import { IconField } from "@/components/ui/icon-input/field";
 import { SliderField } from "@/components/ui/slider/field";
 import { Badge } from "@/components/ui/badge";
+import { v4 as uuid } from "uuid";
+import { toast } from "sonner";
 
 type ManageMultipleItemDialogProps = BaseDialogProps & {
   data: MultipleDragItemData;
@@ -239,9 +241,7 @@ export const MenageMultipleItemDialog = ({
 }: ManageMultipleItemDialogProps) => {
   const methods = useForm();
 
-  const onSubmit = (formData: any) => {
-    console.log(formData);
-  };
+  const { setValue, getValues } = useFormContext<ResumeData>();
 
   const formContent = useMemo(() => {
     const config = formConfig[data.formKey];
@@ -284,6 +284,23 @@ export const MenageMultipleItemDialog = ({
       );
     });
   }, [data.formKey]);
+
+  const onSubmit = (formData: any) => {
+    const currentValue = getValues();
+
+    const formKey = data.formKey;
+    const currentFieldValue = currentValue.content[formKey] ?? [];
+
+    setValue(`content.${formKey}`, [
+      ...currentFieldValue,
+      {
+        ...formData,
+        id: uuid(),
+      },
+    ]);
+    setOpen(false);
+    toast.success("Item adicionado com sucesso");
+  };
 
   return (
     <Dialog
