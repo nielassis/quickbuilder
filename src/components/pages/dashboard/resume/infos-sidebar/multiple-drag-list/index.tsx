@@ -72,7 +72,8 @@ export const MultipleDragList = ({
                 >
                   {fields.map((field, index) => {
                     const titleKey = data.titleKey as keyof typeof field;
-                    const descriptionKey = data.titleKey as keyof typeof field;
+                    const descriptionKey =
+                      data.descriptionKey as keyof typeof field;
 
                     const isLastItem = index === fields.length - 1;
 
@@ -99,7 +100,12 @@ export const MultipleDragList = ({
                               <GripVertical size={14} />
                             </div>
                             <Tooltip content="Clique para editar">
-                              <div className="flex-1 flex flex-col justify-center px-3 cursor-pointer hover:bg-muted/80 transition-all">
+                              <div
+                                className="flex-1 flex flex-col justify-center px-3 cursor-pointer hover:bg-muted/80 transition-all"
+                                onClick={() => {
+                                  onEdit(index);
+                                }}
+                              >
                                 <p className="text-sm font-title font-bold">
                                   {field[titleKey]}
                                 </p>
@@ -118,6 +124,16 @@ export const MultipleDragList = ({
               )}
             </Droppable>
           </DragDropContext>
+        )}
+
+        {!isEmpity && (
+          <Button
+            variant="outline"
+            className="w-max gap-2 ml-auto mt-4"
+            onClick={onAdd}
+          >
+            <Plus size={16} /> Adicionar Item
+          </Button>
         )}
       </div>
     </div>
